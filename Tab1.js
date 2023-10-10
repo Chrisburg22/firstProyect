@@ -2,81 +2,77 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { FlatList, Image, Text, View, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  Image,
+  Text,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { WebView } from "react-native-webview";
 
 const data = [
   {
     id: "0",
-    Nombre: "Roger Plascencia",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Pintor",
-    Telefono: "333286578",
+    Nombre: "La cotorriza con Niurca",
+    Video: "https://www.youtube.com/watch?v=nRLRxuAawKQ",
   },
   {
     id: "1",
-    Nombre: "Angela Aceves",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Albañil",
-    Telefono: "333286578",
+    Nombre: "La cotorriza Oscar burgos",
+    Video: "https://www.youtube.com/watch?v=DslKT-XsrxE",
   },
   {
     id: "2",
-    Nombre: "Dario Carrasco",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Electricista",
-    Telefono: "333286578",
+    Nombre: "La cotorriza Oscar burgos",
+    Video: "https://www.youtube.com/watch?v=DslKT-XsrxE",
   },
   {
     id: "3",
-    Nombre: "Tomas Pat",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Pintor",
-    Telefono: "333286578",
+    Nombre: "La cotorriza Oscar burgos",
+    Video: "https://www.youtube.com/watch?v=DslKT-XsrxE",
   },
   {
     id: "4",
-    Nombre: "Hilario Armendariz",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Albañil",
-    Telefono: "333286578",
+    Nombre: "La cotorriza Oscar burgos",
+    Video: "https://www.youtube.com/watch?v=DslKT-XsrxE",
   },
   {
     id: "5",
-    Nombre: "António Leos",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Electricista",
-    Telefono: "333286578",
+    Nombre: "La cotorriza Oscar burgos",
+    Video: "https://www.youtube.com/watch?v=DslKT-XsrxE",
   },
   {
     id: "6",
     Nombre: "Mariel Camargo",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Pintor",
-    Telefono: "333286578",
+    Video: "https://www.youtube.com/watch?v=DslKT-XsrxE",
   },
   {
     id: "7",
     Nombre: "Aidee Mares",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Albañil",
-    Telefono: "333286578",
+    Video: "https://www.youtube.com/watch?v=DslKT-XsrxE",
   },
   {
     id: "8",
     Nombre: "Andres Echeverria",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Electricista",
-    Telefono: "333286578",
+    Video: "https://www.youtube.com/watch?v=DslKT-XsrxE",
   },
   {
     id: "9",
     Nombre: "Irais Buenrostro",
-    Imagen: "https://i.pravatar.cc/300",
-    Profesion: "Pintor",
-    Telefono: "333286578",
+    Video: "https://www.youtube.com/watch?v=DslKT-XsrxE",
   },
 ];
+
+const MyWeb = (item) => {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <WebView source={{ uri: item.Video }} />
+    </SafeAreaView>
+  );
+};
 
 const renderItem = ({ item, navigation }) => {
   return (
@@ -89,16 +85,20 @@ const renderItem = ({ item, navigation }) => {
           cursor: "pointer",
         }}
       >
-        <Image
-          source={{ uri: item.Imagen }}
-          style={{ width: 50, height: 50, borderRadius: 25 }}
-        />
-        <View style={{ marginLeft: 10 }}>
+        <View style={{ height: 20, widht: 20 }}>
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>
             {item.Nombre}
           </Text>
-          <Text style={{ fontSize: 16 }}>{item.Profesion}</Text>
-          <Text style={{ fontSize: 16 }}>{item.Telefono}</Text>
+          <View style={{ height: 200, widht: 200 }}>
+            <WebView
+              source={{ uri: item.Video }}
+              javaScriptEnabled={true}
+              domStorageEnabled={true}
+            />
+          </View>
+
+          {/* <Text style={{ fontSize: 16 }}>{item.Profesion}</Text>
+          <Text style={{ fontSize: 16 }}>{item.Telefono}</Text> */}
         </View>
       </View>
     </TouchableOpacity>
@@ -112,6 +112,7 @@ function HomeScreen({ navigation }) {
       data={data}
       renderItem={({ item }) => renderItem({ item, navigation })}
       keyExtractor={(item) => item.id}
+      horizontal={true}
     />
   );
 }
